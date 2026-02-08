@@ -2,11 +2,17 @@ import pickle
 import numpy as np
 from typing import List, Dict
 from sentence_transformers import SentenceTransformer
+from pathlib import Path
 
 class RegulatoryRetriever:
     """Retrieves relevant regulatory passages for a given query"""
     
     def __init__(self, chunks_path: str = "data/processed/chunks.pkl"):
+        
+        # Check if chunks exist, if not, process documents
+        if not Path(chunks_path).exists():
+            print("⚠️ Chunks not found. Processing documents...")
+            self._process_documents()
         
         # Load chunks
         with open(chunks_path, 'rb') as f:
@@ -21,6 +27,11 @@ class RegulatoryRetriever:
         self.embeddings = self.embedder.encode(texts)
         
         print(f"✓ Loaded retriever with {len(self.chunks)} documents")
+    
+    def _process_documents(self):
+        """Process documents if chunks don't exist"""
+        from src.retrieval.document_processor import build_vector_store
+        build_vector_store()
     
     def search(self, query: str, top_k: int = 3) -> List[Dict]:
         """Search for relevant regulatory passages using cosine similarity"""
