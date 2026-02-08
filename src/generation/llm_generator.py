@@ -3,16 +3,28 @@ import json
 from typing import Dict, List
 from groq import Groq
 from dotenv import load_dotenv
+
+# Load Streamlit secrets if available, otherwise use .env
+try:
+    import streamlit as st
+    if "GROQ_API_KEY" in st.secrets:
+        os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+except:
+    load_dotenv()
+
 from src.schemas import CR1Row, CR1Template, ExposureClass, RegulatoryReference
 from src.retrieval.retriever import RegulatoryRetriever
-
-load_dotenv()
 
 class COREPGenerator:
     """Generates structured COREP data using LLM + RAG"""
     
     def __init__(self):
-        self.client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        # Get API key
+        api_key = os.getenv("GROQ_API_KEY")
+        if not api_key:
+            raise ValueError("GROQ_API_KEY not found in environment variables or Streamlit secrets")
+        
+        self.client = Groq(api_key=api_key)
         self.retriever = RegulatoryRetriever()
         self.model = "llama-3.3-70b-versatile"
     
@@ -101,15 +113,14 @@ Return ONLY the JSON, no other text."""
             risk_weight = data['risk_weight_percent']
             rwa = exposure * (risk_weight / 100)
             
-            # Build regulatory references
+            # Build regulatory references - use top 2 most relevant documents
             references = []
-            for doc in retrieved_docs:
-                if doc['article_number'] == data.get('article_used'):
-                    references.append(RegulatoryReference(
-                        article_number=doc['article_number'],
-                        source=doc['source'],
-                        excerpt=doc['text'][:200] + "..."
-                    ))
+            for doc in retrieved_docs[:2]:  # Take top 2 most relevant
+                references.append(RegulatoryReference(
+                    article_number=doc['article_number'],
+                    source=doc['source'],
+                    excerpt=doc['text'][:200] + "..."
+                ))
             
             # Create CR1Row
             row = CR1Row(
