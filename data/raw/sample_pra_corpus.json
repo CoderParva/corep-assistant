@@ -1,0 +1,27 @@
+[
+  {
+    "article_number": 112,
+    "source": "CRR Article 112",
+    "content": "Exposures to corporates. Exposures to corporates shall be assigned a risk weight as follows: (a) 100% risk weight for unrated exposures; (b) 20% to 150% for rated exposures based on credit quality step."
+  },
+  {
+    "article_number": 125,
+    "source": "CRR Article 125", 
+    "content": "Exposures secured by mortgages on residential property. Exposures fully and completely secured by mortgages on residential property that is or will be occupied by the owner shall be assigned a 35% risk weight."
+  },
+  {
+    "article_number": 114,
+    "source": "CRR Article 114",
+    "content": "Exposures to central governments or central banks. Exposures to central governments and central banks shall be assigned a risk weight as follows: credit quality step 1: 0%, step 2: 20%, step 3: 50%, step 4-6: 100%, step 7-8: 150%."
+  },
+  {
+    "article_number": 124,
+    "source": "CRR Article 124",
+    "content": "Exposures secured by mortgages on commercial immovable property. Exposures fully and completely secured by mortgages on offices or other commercial premises shall be assigned a 100% risk weight."
+  },
+  {
+    "article_number": 113,
+    "source": "CRR Article 113",
+    "content": "Exposures to institutions. Exposures to institutions shall be assigned a risk weight based on the credit quality step of the institution: credit quality step 1: 20%, step 2: 50%, step 3: 100%, step 4-6: 100%, step 7-8: 150%."
+  }
+]
