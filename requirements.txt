@@ -4,16 +4,15 @@ groq==0.4.1
 
 # ML/NLP
 sentence-transformers==3.3.1
-numpy==2.1.0
 regex==2024.11.6
 
-# Data processing
+# Data processing - let pandas decide numpy version
 pandas
 openpyxl
 
-# LLM framework
-langchain==0.1.0
-langchain-groq==0.0.1
+# LLM framework - remove version constraints
+langchain
+langchain-groq
 
 # Utilities
 python-dotenv==1.0.0
