@@ -3,24 +3,29 @@ import json
 from typing import Dict, List
 from groq import Groq
 from dotenv import load_dotenv
-
-# Load Streamlit secrets if available, otherwise use .env
-try:
-    import streamlit as st
-    if "GROQ_API_KEY" in st.secrets:
-        os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
-except:
-    load_dotenv()
-
 from src.schemas import CR1Row, CR1Template, ExposureClass, RegulatoryReference
 from src.retrieval.retriever import RegulatoryRetriever
+
+# Load environment variables
+load_dotenv()
 
 class COREPGenerator:
     """Generates structured COREP data using LLM + RAG"""
     
     def __init__(self):
-        # Get API key
-        api_key = os.getenv("GROQ_API_KEY")
+        # Get API key - check Streamlit secrets first, then environment
+        api_key = None
+        
+        try:
+            import streamlit as st
+            if "GROQ_API_KEY" in st.secrets:
+                api_key = st.secrets["GROQ_API_KEY"]
+        except:
+            pass
+        
+        if not api_key:
+            api_key = os.getenv("GROQ_API_KEY")
+        
         if not api_key:
             raise ValueError("GROQ_API_KEY not found in environment variables or Streamlit secrets")
         
