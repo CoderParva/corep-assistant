@@ -1,5 +1,12 @@
 # COREP CR1 Reporting Assistant
 
+## 🚀 Live Demo
+
+**Try it now:** [https://corep-assistant-nvc6clyptjzqkkvnxugwdp.streamlit.app/](https://corep-assistant-nvc6clyptjzqkkvnxugwdp.streamlit.app/)
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://corep-assistant-nvc6clyptjzqkkvnxugwdp.streamlit.app/)
+
+---
 ## Overview
 An LLM-assisted regulatory reporting prototype for UK banks subject to PRA Rulebook. This tool automates COREP CR1 (Credit Risk - Standardised Approach) template generation using RAG (Retrieval-Augmented Generation) and structured LLM outputs.
 
